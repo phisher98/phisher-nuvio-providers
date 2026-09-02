@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // fourkHDhub.js
 // 4K HDHUB - High quality movie & series site (4khdhub.dad)
 // Search: /?s={query}  Results in div.card-grid a
@@ -170,3 +171,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

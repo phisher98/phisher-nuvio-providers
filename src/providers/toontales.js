@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // toontales.js
 // Provider: ToonTales (https://www.toontales.net)
 // Classic cartoons (Popeye, Tom & Jerry, etc.) - stream URL extracted from inline script
@@ -74,3 +75,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

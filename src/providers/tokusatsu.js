@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // tokusatsu.js
 // Provider: TokusatsuUltimate (https://toku555.com)
 // Scrapes toku555.com for tokusatsu content and extracts HLS via AES decryption
@@ -150,3 +151,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

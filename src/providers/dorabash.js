@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // dorabash.js
 // DoraBash - Hindi Doraemon/cartoon/anime site (dorabash.in)
 // Episodes loaded via AJAX: /wp-admin/admin-ajax.php?action=get_episodes&anime_id={seasonId}&page=1&order=desc
@@ -114,3 +115,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

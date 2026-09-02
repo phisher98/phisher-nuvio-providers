@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // fibwatch.js
 // FibWatch - Hindi/Bangla/South Indian multilingual movie & series site (fibwatch.top)
 // Search: /search?keyword={query}&page_id=1
@@ -183,3 +184,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

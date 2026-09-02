@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // piratexplay.js
 // Piratexplay provider — Anime/Cartoon/Movies (Hindi)
 // Searches title, finds episode URL, extracts iframes from page
@@ -124,3 +125,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

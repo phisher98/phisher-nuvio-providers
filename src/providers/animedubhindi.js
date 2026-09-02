@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // animedubhindi.js
 // AnimeDubHindi (https://www.animedubhindi.me) - Hindi dubbed anime
 // Downloads via HubCloud/GDFlix links, episodes parsed from series page
@@ -121,3 +122,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

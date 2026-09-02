@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // donghuastream.js
 // Donghuastream - Chinese Anime/Donghua site (donghuastream.org)
 // Search: /pagg/{page}/?s={query}
@@ -150,3 +151,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

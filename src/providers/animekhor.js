@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // animekhor.js
 // Animekhor (https://animekhor.org) - Anime/Donghua streaming in Chinese
 // Episode servers use base64-encoded HTML containing iframe src URLs
@@ -110,3 +111,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

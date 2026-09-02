@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // desicinemas.js
 // Desicinemas - Hindi/Punjabi/Bollywood movie site (desicinemas.to)
 // Uses a Cloudflare Worker proxy for requests
@@ -88,3 +89,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

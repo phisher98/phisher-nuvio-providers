@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // pinoymoviepedia.js
 // Pinoymoviepedia provider — Filipino movies
 // Searches by title, finds page, extracts iframes from div.pframe
@@ -66,3 +67,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

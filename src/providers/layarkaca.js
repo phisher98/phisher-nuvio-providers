@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // layarkaca.js
 // LayarKaca - Indonesian movie/series provider via lk21.de and series.lk21.de
 
@@ -173,3 +174,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

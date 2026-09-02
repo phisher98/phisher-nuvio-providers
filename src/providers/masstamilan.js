@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // masstamilan.js
 // MassTamilan - Tamil/Telugu/Hindi music songs provider via masstamilan.dev
 // Note: This is primarily a music provider (audio streams), not video
@@ -99,3 +100,6 @@ function extractQuality(text) {
   if (t.includes("128")) return "Unknown";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

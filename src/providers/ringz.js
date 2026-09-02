@@ -116,3 +116,6 @@ function inferQuality(url, key) {
   };
   return check(url) || check(key) || "Unknown";
 }
+
+
+module.exports = { getStreams };

@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // toonstream.js
 // Provider: Toonstream (https://toonstream.vip)
 // Hindi dubbed cartoons and anime - multi-server support via AJAX season loading
@@ -153,3 +154,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

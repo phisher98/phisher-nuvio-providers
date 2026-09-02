@@ -141,3 +141,6 @@ function mapQuality(q) {
   if (u.includes("360")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

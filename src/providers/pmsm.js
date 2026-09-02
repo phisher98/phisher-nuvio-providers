@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // pmsm.js
 // PMSM (PencurimovieSubMalay) provider — Malay subtitle movies/series
 // Uses zeta_player_ajax WordPress endpoint to get embed iframes
@@ -130,3 +131,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

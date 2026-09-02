@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // netcinez.js
 // Netcinez - Portuguese (Brazilian) movies/series provider via netcinez.si
 
@@ -199,3 +200,6 @@ function extractQuality(text) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

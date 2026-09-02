@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // megakino.js
 // Megakino - German movies/series provider via megakino.team with Gxplayer embeds
 
@@ -142,3 +143,6 @@ function mapQuality(q) {
   if (u.includes("480")) return "480p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

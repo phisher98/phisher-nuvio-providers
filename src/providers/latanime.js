@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // latanime.js
 // Latanime - Spanish-language anime provider via latanime.org
 
@@ -145,3 +146,6 @@ String.prototype.substringAfter = function(delimiter) {
   const idx = this.indexOf(delimiter);
   return idx === -1 ? this : this.slice(idx + delimiter.length);
 };
+
+
+module.exports = { getStreams };

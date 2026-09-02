@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // goojara.js
 // Goojara - English movie & series site (ww1.goojara.to)
 // Search: POST to /xmre.php with form data z, x, q
@@ -158,3 +159,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // movierulzhd.js
 // Movierulzhd - Hindi movies/series provider with WordPress admin-ajax embed extraction
 
@@ -194,3 +195,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

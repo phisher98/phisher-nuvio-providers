@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // movies4u.js
 // Movies4u - Hindi/Bollywood/Hollywood download links provider via movies4u.style
 
@@ -165,3 +166,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

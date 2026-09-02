@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // anime-dekho.js
 // AnimeDekho (https://animedekho.app) - Hindi dubbed anime, uses WP post-ID to find iframes
 // Searches site, gets body class postid, loops trdekho=0..10 to find iframes
@@ -103,3 +104,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // animecloud.js
 // AnimeCloud (https://fireani.me) - German anime site with REST JSON API
 // API: /api/anime/search?q=, /api/anime?slug=, /api/anime/episode?slug=&season=&episode=
@@ -102,3 +103,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

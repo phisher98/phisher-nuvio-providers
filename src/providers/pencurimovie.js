@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // pencurimovie.js
 // Pencurimovie provider — Indonesian movies/series/anime
 // Searches by title, finds the show page, then extracts iframes from div.movieplay
@@ -91,3 +92,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

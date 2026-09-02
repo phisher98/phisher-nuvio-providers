@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // coflix.js
 // Coflix - French language movie & series site (coflix.wales)
 // Uses WP-JSON API: /wp-json/apiflix/v1  and suggest.php for search
@@ -100,3 +101,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

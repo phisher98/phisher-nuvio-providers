@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // hindmoviez.js
 // Hindmoviez - Hindi movie & web series site (hindmoviez.cafe)
 // Search: /page/1/?s={query}
@@ -162,3 +163,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // cinefreak.js
 // Cinefreak - Bangla/Hindi/Korean multilingual movie & series site (cinefreak.nl)
 // Search API: /search-api.php?q=...  Download links are base64-encoded redirect links
@@ -119,3 +120,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

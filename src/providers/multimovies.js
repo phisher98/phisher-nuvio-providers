@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // multimovies.js
 // MultiMovies - Hindi/Bollywood/Anime provider via multimovies.autos with WordPress player extraction
 
@@ -236,3 +237,6 @@ function extractQuality(url) {
   if (u.includes("360p")) return "360p";
   return "Unknown";
 }
+
+
+module.exports = { getStreams };

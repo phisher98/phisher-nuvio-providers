@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // tokuzilla.js
 // Provider: TokuZilla (https://tokuzilla.net)
 // Scrapes tokuzilla.net for tokusatsu/anime/series streams via embedded iframe + AES decryption
@@ -150,3 +151,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

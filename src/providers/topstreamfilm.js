@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // topstreamfilm.js
 // Provider: TopStreamFilm (https://www.topstreamfilm.live)
 // German streaming site for movies and TV series
@@ -126,3 +127,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

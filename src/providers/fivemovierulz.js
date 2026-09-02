@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // fivemovierulz.js
 // 5movierulz - South Indian/Bollywood movie site (5movierulz.gripe)
 // Search: /?s={query}
@@ -73,3 +74,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

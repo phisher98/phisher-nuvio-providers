@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // topcartoons.js
 // Provider: Topcartoons (https://www.topcartoons.tv)
 // English cartoon TV shows - extracts stream from og:video:url meta tag
@@ -85,3 +86,6 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     return [];
   }
 }
+
+
+module.exports = { getStreams };

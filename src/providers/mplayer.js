@@ -1,3 +1,4 @@
+const cheerio = require("cheerio-without-node-native");
 // mplayer.js
 // MPlayer - MX Player India streaming provider via api.mxplayer.in
 
@@ -161,3 +162,6 @@ function normalizeUrl(url) {
   if (url.startsWith("http")) return url;
   return ENDPOINT_URL + url;
 }
+
+
+module.exports = { getStreams };
