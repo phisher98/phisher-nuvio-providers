@@ -12,7 +12,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/moviesdrive.js",
+      "filename": "providers/moviesdrive.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -34,7 +34,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/allwish.js",
+      "filename": "providers/allwish.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -55,7 +55,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/allwish.js",
+      "filename": "providers/allwish.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -76,7 +76,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/anichi.js",
+      "filename": "providers/anichi.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -98,7 +98,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/anime-dekho.js",
+      "filename": "providers/anime-dekho.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -120,7 +120,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/animecloud.js",
+      "filename": "providers/animecloud.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -142,7 +142,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/animedubhindi.js",
+      "filename": "providers/animedubhindi.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -164,7 +164,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/animekhor.js",
+      "filename": "providers/animekhor.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -186,7 +186,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/animepahe.js",
+      "filename": "providers/animepahe.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -207,7 +207,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/cinefreak.js",
+      "filename": "providers/cinefreak.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -228,7 +228,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/coflix.js",
+      "filename": "providers/coflix.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -249,7 +249,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/desicinemas.js",
+      "filename": "providers/desicinemas.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -271,7 +271,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/donghuastream.js",
+      "filename": "providers/donghuastream.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -292,7 +292,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/dorabash.js",
+      "filename": "providers/dorabash.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -313,7 +313,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/dudefilms.js",
+      "filename": "providers/dudefilms.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -334,7 +334,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/fibwatch.js",
+      "filename": "providers/fibwatch.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -355,7 +355,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/fivemovierulz.js",
+      "filename": "providers/fivemovierulz.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -376,7 +376,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/fourkHDhub.js",
+      "filename": "providers/fourkHDhub.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -397,7 +397,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/goojara.js",
+      "filename": "providers/goojara.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -419,7 +419,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/hianime.js",
+      "filename": "providers/hianime.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -440,7 +440,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/hindmoviez.js",
+      "filename": "providers/hindmoviez.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -461,7 +461,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/idlix.js",
+      "filename": "providers/idlix.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -482,7 +482,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/istreamflare.js",
+      "filename": "providers/istreamflare.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -504,7 +504,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/kickassanime.js",
+      "filename": "providers/kickassanime.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -525,7 +525,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/kisskh.js",
+      "filename": "providers/kisskh.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -547,7 +547,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/latanime.js",
+      "filename": "providers/latanime.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -568,7 +568,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/layarkaca.js",
+      "filename": "providers/layarkaca.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -589,7 +589,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/masstamilan.js",
+      "filename": "providers/masstamilan.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -610,7 +610,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/megakino.js",
+      "filename": "providers/megakino.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -631,7 +631,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/movierulzhd.js",
+      "filename": "providers/movierulzhd.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -652,7 +652,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/movies4u.js",
+      "filename": "providers/movies4u.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -673,7 +673,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/moviesdrive.js",
+      "filename": "providers/moviesdrive.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -694,7 +694,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/mplayer.js",
+      "filename": "providers/mplayer.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -715,7 +715,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/multimovies.js",
+      "filename": "providers/multimovies.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -736,7 +736,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/netcinez.js",
+      "filename": "providers/netcinez.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -757,7 +757,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/onepace.js",
+      "filename": "providers/onepace.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -778,7 +778,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/pelisplushd.js",
+      "filename": "providers/pelisplushd.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -799,7 +799,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/pencurimovie.js",
+      "filename": "providers/pencurimovie.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -820,7 +820,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/pinoymoviepedia.js",
+      "filename": "providers/pinoymoviepedia.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -841,7 +841,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/piratexplay.js",
+      "filename": "providers/piratexplay.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -862,7 +862,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/pmsm.js",
+      "filename": "providers/pmsm.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -883,7 +883,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/ringz.js",
+      "filename": "providers/ringz.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -904,7 +904,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/tokusatsu.js",
+      "filename": "providers/tokusatsu.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -925,7 +925,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/tokuzilla.js",
+      "filename": "providers/tokuzilla.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -947,7 +947,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/toonhub.js",
+      "filename": "providers/toonhub.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -969,7 +969,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/toonstream.js",
+      "filename": "providers/toonstream.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -991,7 +991,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/toontales.js",
+      "filename": "providers/toontales.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -1013,7 +1013,7 @@
         "tv",
         "anime"
       ],
-      "filename": "src/providers/topcartoons.js",
+      "filename": "providers/topcartoons.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -1034,7 +1034,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/topstreamfilm.js",
+      "filename": "providers/topstreamfilm.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -1055,7 +1055,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/torrastream.js",
+      "filename": "providers/torrastream.js",
       "enabled": true,
       "formats": [
         "mp4",
@@ -1076,7 +1076,7 @@
         "movie",
         "tv"
       ],
-      "filename": "src/providers/xdmovies.js",
+      "filename": "providers/xdmovies.js",
       "enabled": true,
       "formats": [
         "mp4",
