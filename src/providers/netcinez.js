@@ -203,6 +203,7 @@ function extractQuality(text) {
 
 
 
+
 const { extract } = require('../utils/extractors.js');
 async function wrappedGetStreams(...args) {
     const streams = await getStreams(...args);
@@ -214,11 +215,20 @@ async function wrappedGetStreams(...args) {
             s.url = ext.url;
             if (ext.quality !== 'Unknown') s.quality = ext.quality;
             finalStreams.push(s);
-        } else if (s.url.includes('.mp4') || s.url.includes('.m3u8') || s.url.startsWith('magnet:')) {
+        } else if (
+            s.url.includes('.mp4') || 
+            s.url.includes('.m3u8') || 
+            s.url.includes('.mkv') || 
+            s.url.includes('.avi') || 
+            s.url.startsWith('magnet:') ||
+            s.url.includes('/api/file/') ||
+            s.url.includes('.cloudflarestorage.com')
+        ) {
             finalStreams.push(s);
         }
     }
     return finalStreams;
 }
 module.exports = { getStreams: wrappedGetStreams };
+
 

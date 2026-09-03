@@ -74,6 +74,32 @@ async function extractVoe(url) {
     return null;
 }
 
+
+async function extractPixeldrain(url) {
+    const m = url.match(/\/u\/([^/?]+)/);
+    if (m) {
+        let domain = 'pixeldrain.com';
+        if (url.includes('fuckingfast')) domain = 'fuckingfast.co';
+        if (url.includes('pd.zidi.cfd')) domain = 'pd.zidi.cfd';
+        return { url: 'https://' + domain + '/api/file/' + m[1], quality: 'Unknown', source: 'Pixeldrain' };
+    }
+    return null;
+}
+
+async function extractVdplay(url) {
+    try {
+        const urlObj = new URL(url);
+        const u = urlObj.searchParams.get('u');
+        if (u) {
+            const decoded = Buffer.from(u, 'base64').toString('utf8');
+            if (decoded.startsWith('http')) {
+                return { url: decoded, quality: 'Unknown', source: 'Direct' };
+            }
+        }
+    } catch (e) {}
+    return null;
+}
+
 async function extract(url) {
     if (!url) return null;
     const lowerUrl = url.toLowerCase();

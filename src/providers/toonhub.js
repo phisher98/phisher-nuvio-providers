@@ -99,4 +99,31 @@ async function getStreams(tmdbId, mediaType, season, episode) {
 }
 
 
-module.exports = { getStreams };
+
+const { extract } = require('../utils/extractors.js');
+async function wrappedGetStreams(...args) {
+    const streams = await getStreams(...args);
+    const finalStreams = [];
+    for (const s of streams) {
+        if (!s.url) continue;
+        const ext = await extract(s.url);
+        if (ext) {
+            s.url = ext.url;
+            if (ext.quality !== 'Unknown') s.quality = ext.quality;
+            finalStreams.push(s);
+        } else if (
+            s.url.includes('.mp4') || 
+            s.url.includes('.m3u8') || 
+            s.url.includes('.mkv') || 
+            s.url.includes('.avi') || 
+            s.url.startsWith('magnet:') ||
+            s.url.includes('/api/file/') ||
+            s.url.includes('.cloudflarestorage.com')
+        ) {
+            finalStreams.push(s);
+        }
+    }
+    return finalStreams;
+}
+module.exports = { getStreams: wrappedGetStreams };
+

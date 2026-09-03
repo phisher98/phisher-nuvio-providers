@@ -234,7 +234,7 @@ function wrappedGetStreams(...args) {
         if (ext.quality !== "Unknown")
           s.quality = ext.quality;
         finalStreams.push(s);
-      } else if (s.url.includes(".mp4") || s.url.includes(".m3u8") || s.url.startsWith("magnet:")) {
+      } else if (s.url.includes(".mp4") || s.url.includes(".m3u8") || s.url.includes(".mkv") || s.url.includes(".avi") || s.url.startsWith("magnet:") || s.url.includes("/api/file/") || s.url.includes(".cloudflarestorage.com")) {
         finalStreams.push(s);
       }
     }
