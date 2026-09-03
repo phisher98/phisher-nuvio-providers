@@ -18,12 +18,14 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const TORRENTIO_API = "https://torrentio.strem.fun";
-const THEPIRATEBAY_API = "https://thepiratebay-plus.strem.fun";
-const TORRENTSDB_API = "https://torrentsdb.com";
-const TRACKER_LIST_URL = "https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt";
-const HEADERS = {
+
+// src/providers/torrastream.js
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var TORRENTIO_API = "https://torrentio.strem.fun";
+var THEPIRATEBAY_API = "https://thepiratebay-plus.strem.fun";
+var TORRENTSDB_API = "https://torrentsdb.com";
+var TRACKER_LIST_URL = "https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   "Accept": "application/json"
 };
@@ -66,10 +68,9 @@ function invokeTorrentio(imdbId, season, episode) {
         return [];
       const trackers = yield getTrackers();
       return res.streams.map((stream) => {
-        var _a;
         const qualityMatch = (stream.title || "").match(/(2160p|1080p|720p)/i);
         const quality = qualityMatch ? qualityMatch[1] : "Unknown";
-        const seeder = ((_a = (stream.title || "").match(/👤\s*(\d+)/)) == null ? void 0 : _a[1]) || "0";
+        const seeder = (stream.title || "").match(/👤\s*(\d+)/)?.[1] || "0";
         const magnet = buildMagnet(stream.infoHash, trackers, stream.sources || []);
         const title = `Torrentio | ${quality} | Seeders: ${seeder}`;
         return {
@@ -115,11 +116,10 @@ function invokeTorrentsDB(imdbId, season, episode) {
       if (!res || !res.streams)
         return [];
       return res.streams.map((stream) => {
-        var _a;
         const title = stream.title || "";
         const qualityMatch = title.match(/(2160p|1080p|720p)/i);
         const quality = qualityMatch ? qualityMatch[1] : "Unknown";
-        const seeder = ((_a = title.match(/👤\s*(\d+)/)) == null ? void 0 : _a[1]) || "0";
+        const seeder = title.match(/👤\s*(\d+)/)?.[1] || "0";
         const magnet = buildMagnet(stream.infoHash, [], stream.sources || []);
         return {
           url: magnet,
@@ -135,11 +135,10 @@ function invokeTorrentsDB(imdbId, season, episode) {
 }
 function getImdbId(tmdbId, mediaType) {
   return __async(this, null, function* () {
-    var _a;
     try {
       const url = `https://api.themoviedb.org/3/${mediaType}/${tmdbId}?api_key=${TMDB_API_KEY}&append_to_response=external_ids`;
       const res = yield (yield fetch(url, { skipSizeCheck: true })).json();
-      return ((_a = res.external_ids) == null ? void 0 : _a.imdb_id) || res.imdb_id || null;
+      return res.external_ids?.imdb_id || res.imdb_id || null;
     } catch (e) {
       return null;
     }

@@ -46,15 +46,17 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-var stdin_exports = {};
-__export(stdin_exports, {
+
+// src/providers/allwish.js
+var allwish_exports = {};
+__export(allwish_exports, {
   getStreams: () => getStreams
 });
-module.exports = __toCommonJS(stdin_exports);
+module.exports = __toCommonJS(allwish_exports);
 var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
-const BASE_URL = "https://all-wish.me";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const XML_HEADER = {
+var BASE_URL = "https://all-wish.me";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var XML_HEADER = {
   "X-Requested-With": "XMLHttpRequest",
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
 };
@@ -82,7 +84,6 @@ function fetchText(_0) {
 }
 function resolveTmdbId(id, mediaType) {
   return __async(this, null, function* () {
-    var _a, _b, _c, _d;
     if (!String(id).startsWith("tt")) {
       return id;
     }
@@ -93,9 +94,9 @@ function resolveTmdbId(id, mediaType) {
     const data = yield fetchJson(url);
     let tmdbId = null;
     if (mediaType === "movie") {
-      tmdbId = (_b = (_a = data == null ? void 0 : data.movie_results) == null ? void 0 : _a[0]) == null ? void 0 : _b.id;
+      tmdbId = data?.movie_results?.[0]?.id;
     } else {
-      tmdbId = (_d = (_c = data == null ? void 0 : data.tv_results) == null ? void 0 : _c[0]) == null ? void 0 : _d.id;
+      tmdbId = data?.tv_results?.[0]?.id;
     }
     if (!tmdbId) {
       throw new Error(
@@ -210,7 +211,6 @@ function generateEpisodeVrf(episodeId) {
 }
 function extractMegaPlay(realUrl, sectionType) {
   return __async(this, null, function* () {
-    var _a, _b;
     try {
       const embedHtml = yield fetchText(realUrl, {
         Referer: "https://megaplay.buzz/",
@@ -219,7 +219,7 @@ function extractMegaPlay(realUrl, sectionType) {
       const dataIdMatch = embedHtml.match(
         /data-id="(\d+)"/
       );
-      const megaId = dataIdMatch == null ? void 0 : dataIdMatch[1];
+      const megaId = dataIdMatch?.[1];
       if (!megaId) {
         console.log(
           "[MegaPlay] No data-id"
@@ -239,7 +239,7 @@ function extractMegaPlay(realUrl, sectionType) {
           "User-Agent": "Mozilla/5.0"
         }
       );
-      const source = (_a = megaRes == null ? void 0 : megaRes.sources) == null ? void 0 : _a.file;
+      const source = megaRes?.sources?.file;
       if (!source)
         return [];
       return [
@@ -248,12 +248,12 @@ function extractMegaPlay(realUrl, sectionType) {
           title: `MegaPlay ${(sectionType || "SUB").toUpperCase()}`,
           url: source,
           quality: "1080p",
-          subtitles: ((_b = megaRes == null ? void 0 : megaRes.tracks) == null ? void 0 : _b.map(
+          subtitles: megaRes?.tracks?.map(
             (track) => ({
               lang: track.label || "Unknown",
               url: track.file
             })
-          )) || [],
+          ) || [],
           headers: {
             Referer: "https://rapid-cloud.co/",
             Origin: "https://rapid-cloud.co"
@@ -270,7 +270,6 @@ function extractMegaPlay(realUrl, sectionType) {
 }
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
-    var _a;
     try {
       console.log(
         `[AllWish] Fetching ${mediaType} ${tmdbId}`
@@ -455,7 +454,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
           const apiRes = yield fetchJson(
             apiUrl
           );
-          const realUrl = (_a = apiRes == null ? void 0 : apiRes.result) == null ? void 0 : _a.url;
+          const realUrl = apiRes?.result?.url;
           if (!realUrl)
             continue;
           if (realUrl.includes(
@@ -496,3 +495,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
     }
   });
 }
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  getStreams
+});

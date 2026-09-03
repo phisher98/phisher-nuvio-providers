@@ -1,4 +1,6 @@
 "use strict";
+
+// src/providers/anichi.js
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -24,13 +26,12 @@ var __async = (__this, __arguments, generator) => {
     );
   });
 };
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const API_URL = "https://api.allanime.day/api";
-const API_ENDPOINT = "https://allanimenews.com";
-const MAIN_HASH = "e42a4466d984b2c0a2cecae5dd13aa68867f634b16ee0f17b380047d14482406";
-const maipageshaHash = "a24c500a1b765c68ae1d8dd85174931f661c71369c89b92b88b75a725afc471c";
-const SERVER_HASH = "d405d0edd690624b66baba3068e0edc3ac90f1597d898a1ec8db4e5c43c00fec";
-const HEADERS = {
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var API_URL = "https://api.allanime.day/api";
+var API_ENDPOINT = "https://allanimenews.com";
+var maipageshaHash = "a24c500a1b765c68ae1d8dd85174931f661c71369c89b92b88b75a725afc471c";
+var SERVER_HASH = "d405d0edd690624b66baba3068e0edc3ac90f1597d898a1ec8db4e5c43c00fec";
+var HEADERS = {
   "app-version": "android_c-247",
   "from-app": "4DqMXoovyMEkBc7H",
   "platformstr": "android_c",
@@ -74,7 +75,6 @@ function getStreams(tmdbId, mediaType, season, episode) {
     this,
     null,
     function* () {
-      var _a, _b, _c, _d;
       try {
         console.log(
           `[Anichi] Fetching ${mediaType} ${tmdbId}`
@@ -108,7 +108,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
           return [];
         }
         const searchRes = JSON.parse(responseText);
-        const edges = ((_b = (_a = searchRes == null ? void 0 : searchRes.data) == null ? void 0 : _a.shows) == null ? void 0 : _b.edges) || [];
+        const edges = searchRes?.data?.shows?.edges || [];
         console.log(
           `[Anichi] Results: ${edges.length}`
         );
@@ -119,16 +119,13 @@ function getStreams(tmdbId, mediaType, season, episode) {
           return [];
         }
         const best = edges.find(
-          (e) => {
-            var _a2, _b2;
-            return ((_a2 = e.englishName) == null ? void 0 : _a2.toLowerCase().includes(
-              title.toLowerCase()
-            )) || ((_b2 = e.name) == null ? void 0 : _b2.toLowerCase().includes(
-              title.toLowerCase()
-            ));
-          }
+          (e) => e.englishName?.toLowerCase().includes(
+            title.toLowerCase()
+          ) || e.name?.toLowerCase().includes(
+            title.toLowerCase()
+          )
         ) || edges[0];
-        const showId = best == null ? void 0 : best._id;
+        const showId = best?._id;
         if (!showId) {
           console.log(
             "[Anichi] No show ID"
@@ -156,7 +153,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
           return [];
         }
         const epRes = JSON.parse(epText);
-        const sourceUrls = ((_d = (_c = epRes == null ? void 0 : epRes.data) == null ? void 0 : _c.episode) == null ? void 0 : _d.sourceUrls) || [];
+        const sourceUrls = epRes?.data?.episode?.sourceUrls || [];
         console.log(
           `[Anichi] Sources: ${sourceUrls.length}`
         );
@@ -215,7 +212,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
                 headers: HEADERS
               }
             )).json();
-            const links = (apiRes == null ? void 0 : apiRes.links) || [];
+            const links = apiRes?.links || [];
             for (const server of links) {
               if (server.hls !== false && server.link) {
                 streams.push({
@@ -306,7 +303,6 @@ function extractStreamWish(url, callback) {
     this,
     null,
     function* () {
-      var _a;
       try {
         const html = yield (yield fetch(url, {
           headers: {
@@ -314,9 +310,9 @@ function extractStreamWish(url, callback) {
             "Origin": "https://streamwish.to"
           }
         })).text();
-        const m3u8 = (_a = html.match(
+        const m3u8 = html.match(
           /file:\s*"(.*?m3u8.*?)"/
-        )) == null ? void 0 : _a[1];
+        )?.[1];
         if (!m3u8)
           return;
         callback({
@@ -341,16 +337,15 @@ function extractFilemoon(url, callback) {
     this,
     null,
     function* () {
-      var _a;
       try {
         const html = yield (yield fetch(url, {
           headers: {
             "Referer": url
           }
         })).text();
-        const packed = (_a = html.match(
+        const packed = html.match(
           /sources:\[\{file:"(.*?)"/
-        )) == null ? void 0 : _a[1];
+        )?.[1];
         if (!packed)
           return;
         callback({
@@ -375,12 +370,11 @@ function extractMp4Upload(url, callback) {
     this,
     null,
     function* () {
-      var _a;
       try {
         const html = yield (yield fetch(url)).text();
-        const mp4 = (_a = html.match(
+        const mp4 = html.match(
           /src:\s*"([^"]+\.mp4[^"]*)"/
-        )) == null ? void 0 : _a[1];
+        )?.[1];
         if (!mp4)
           return;
         callback({
@@ -402,12 +396,11 @@ function extractOkru(url, callback) {
     this,
     null,
     function* () {
-      var _a;
       try {
         const html = yield (yield fetch(url)).text();
-        const data = (_a = html.match(
+        const data = html.match(
           /data-options="([^"]+)"/
-        )) == null ? void 0 : _a[1];
+        )?.[1];
         if (!data)
           return;
         const decoded = JSON.parse(
@@ -416,7 +409,7 @@ function extractOkru(url, callback) {
         const metadata = JSON.parse(
           decoded.flashvars.metadata
         );
-        const hls = metadata == null ? void 0 : metadata.hlsManifestUrl;
+        const hls = metadata?.hlsManifestUrl;
         if (!hls)
           return;
         callback({
@@ -454,7 +447,7 @@ function extractByse(url, callback) {
             "X-Embed-Parent": embedFrameUrl
           }
         })).json();
-        const payload = playback == null ? void 0 : playback.playback;
+        const payload = playback?.playback;
         if (!payload)
           return;
         callback({

@@ -46,15 +46,17 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-var stdin_exports = {};
-__export(stdin_exports, {
+
+// src/providers/dudefilms.js
+var dudefilms_exports = {};
+__export(dudefilms_exports, {
   getStreams: () => getStreams
 });
-module.exports = __toCommonJS(stdin_exports);
+module.exports = __toCommonJS(dudefilms_exports);
 var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
-const BASE_URL = "https://dudefilms.sarl";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+var BASE_URL = "https://dudefilms.sarl";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0",
   Referer: `${BASE_URL}/`
 };
@@ -91,12 +93,11 @@ function extractQuality(str = "") {
     /(\d{3,4})p/i
   );
   return normalizeQuality(
-    match == null ? void 0 : match[1]
+    match?.[1]
   );
 }
 function resolveTmdbId(id, mediaType) {
   return __async(this, null, function* () {
-    var _a, _b, _c, _d;
     if (!String(id).startsWith(
       "tt"
     )) {
@@ -104,7 +105,7 @@ function resolveTmdbId(id, mediaType) {
     }
     const url = `https://api.themoviedb.org/3/find/${id}?api_key=${TMDB_API_KEY}&external_source=imdb_id`;
     const data = yield fetchJson(url);
-    return mediaType === "movie" ? (_b = (_a = data == null ? void 0 : data.movie_results) == null ? void 0 : _a[0]) == null ? void 0 : _b.id : (_d = (_c = data == null ? void 0 : data.tv_results) == null ? void 0 : _c[0]) == null ? void 0 : _d.id;
+    return mediaType === "movie" ? data?.movie_results?.[0]?.id : data?.tv_results?.[0]?.id;
   });
 }
 function getTmdbTitle(tmdbId, mediaType) {
@@ -232,3 +233,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
     }
   });
 }
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  getStreams
+});

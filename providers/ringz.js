@@ -18,9 +18,11 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const BASE_URL = atob("aHR0cHM6Ly9kYXRhYXBpLnlvbW92aWVzYXBrLmNvbS8=");
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const CF_HEADERS = {
+
+// src/providers/ringz.js
+var BASE_URL = atob("aHR0cHM6Ly9kYXRhYXBpLnlvbW92aWVzYXBrLmNvbS8=");
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var CF_HEADERS = {
   "cf-access-client-id": atob("ZTNhMTVhZDk5OWRhYjdmMzU5MmYzZDg1NWUwZWM2ZWQuYWNjZXNz"),
   "cf-access-client-secret": atob("OGEyMjUzNmUyZGFjODYzNjlhMmNhYTkxMWQ1NWE4OWExMDk5MzljYzY5ZTY2NDZlNTFiZjVkODUyN2ExZGNhNQ=="),
   "user-agent": "Dart/3.8 (dart:io)"
@@ -45,16 +47,16 @@ function searchRingZ(title, mediaType) {
         } catch (_) {
           continue;
         }
-        const movieList = (data == null ? void 0 : data.AllMovieDataList) || (data == null ? void 0 : data.allData) || [];
-        const seriesList = (data == null ? void 0 : data.webSeriesDataList) || [];
+        const movieList = data?.AllMovieDataList || data?.allData || [];
+        const seriesList = data?.webSeriesDataList || [];
         const searchIn = mediaType === "movie" ? movieList : [...seriesList, ...movieList];
         const titleLower = title.toLowerCase();
         const found = searchIn.find((item) => {
-          const mn = ((item == null ? void 0 : item.mn) || "").toLowerCase();
+          const mn = (item?.mn || "").toLowerCase();
           return mn.includes(titleLower) || titleLower.includes(mn.split(" ")[0]);
         });
         if (found)
-          return { item: found, endpoint: ep, isSeries: !!(data == null ? void 0 : data.webSeriesDataList) && seriesList.includes(found) };
+          return { item: found, endpoint: ep, isSeries: !!data?.webSeriesDataList && seriesList.includes(found) };
       } catch (_) {
       }
     }

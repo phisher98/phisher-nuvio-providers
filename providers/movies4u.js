@@ -18,15 +18,17 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const DOMAINS_URL = "https://raw.githubusercontent.com/phisher98/TVVVV/refs/heads/main/domains.json";
-const FALLBACK_URL = "https://new2.movies4u.style";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+
+// src/providers/movies4u.js
+var cheerio = require("cheerio-without-node-native");
+var DOMAINS_URL = "https://raw.githubusercontent.com/phisher98/TVVVV/refs/heads/main/domains.json";
+var FALLBACK_URL = "https://new2.movies4u.style";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   "Cookie": "xla=s4t"
 };
-let cachedBaseUrl = null;
+var cachedBaseUrl = null;
 function getBaseUrl() {
   return __async(this, null, function* () {
     if (cachedBaseUrl)

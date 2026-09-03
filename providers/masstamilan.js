@@ -18,11 +18,13 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const BASE_URL = "https://masstamilan.dev";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const PROXY = "https://goodproxy.goodproxy.workers.dev/fetch?url=";
-const HEADERS = {
+
+// src/providers/masstamilan.js
+var cheerio = require("cheerio-without-node-native");
+var BASE_URL = "https://masstamilan.dev";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var PROXY = "https://goodproxy.goodproxy.workers.dev/fetch?url=";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   "Referer": `${BASE_URL}/`
 };

@@ -18,10 +18,12 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const BASE_URL = "https://istreamflare.com";
-const API_KEY = "kC7V1f8QRaZyvYnh";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+
+// src/providers/istreamflare.js
+var BASE_URL = "https://istreamflare.com";
+var API_KEY = "kC7V1f8QRaZyvYnh";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; Subsystem for Android(TM) Build/TQ3A.230901.001)",
   "x-api-key": API_KEY
 };

@@ -99,7 +99,7 @@ async function getStreams(tmdbId, mediaType = "movie", season = null, episode = 
         if (!searchRes.ok) return [];
         
         let searchJson = await searchRes.json();
-        if (!searchJson.data || searchJson.data.length === 0) return [];
+        if (!searchJson || !searchJson.data || searchJson.data.length === 0) return [];
         
         let anime = searchJson.data[0];
         let session = anime.session;

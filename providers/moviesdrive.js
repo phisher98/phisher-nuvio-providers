@@ -1,22 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -37,14 +18,16 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const TMDB_API_KEY = "439c478a771f35c05022f9feabcca01c";
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-let MAIN_URL = "https://new3.moviesdrive.christmas";
-const DOMAINS_URL = "https://raw.githubusercontent.com/phisher98/TVVVV/refs/heads/main/domains.json";
-const DOMAIN_CACHE_TTL = 4 * 60 * 60 * 1e3;
-let domainCacheTimestamp = 0;
-const HEADERS = {
+
+// src/providers/moviesdrive.js
+var cheerio = require("cheerio-without-node-native");
+var TMDB_API_KEY = "439c478a771f35c05022f9feabcca01c";
+var TMDB_BASE_URL = "https://api.themoviedb.org/3";
+var MAIN_URL = "https://new3.moviesdrive.christmas";
+var DOMAINS_URL = "https://raw.githubusercontent.com/phisher98/TVVVV/refs/heads/main/domains.json";
+var DOMAIN_CACHE_TTL = 4 * 60 * 60 * 1e3;
+var domainCacheTimestamp = 0;
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
   "Referer": `${MAIN_URL}/`
 };
@@ -85,12 +68,7 @@ function extractServerName(source) {
     return "Hubstream";
   return src.replace(/^www\./i, "").split(/[.\s]/)[0];
 }
-function rot13(value) {
-  return value.replace(/[a-zA-Z]/g, function(c) {
-    return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
-  });
-}
-const BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+var BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 function atob(value) {
   if (!value)
     return "";
@@ -105,30 +83,6 @@ function atob(value) {
         output += String.fromCharCode(255 & bs >> (-2 * bc & 6));
       }
     }
-  }
-  return output;
-}
-function btoa(value) {
-  if (value == null)
-    return "";
-  let str = String(value);
-  let output = "";
-  let i = 0;
-  while (i < str.length) {
-    const chr1 = str.charCodeAt(i++);
-    const chr2 = str.charCodeAt(i++);
-    const chr3 = str.charCodeAt(i++);
-    const enc1 = chr1 >> 2;
-    const enc2 = (chr1 & 3) << 4 | chr2 >> 4;
-    let enc3 = (chr2 & 15) << 2 | chr3 >> 6;
-    let enc4 = chr3 & 63;
-    if (isNaN(chr2)) {
-      enc3 = 64;
-      enc4 = 64;
-    } else if (isNaN(chr3)) {
-      enc4 = 64;
-    }
-    output += BASE64_CHARS.charAt(enc1) + BASE64_CHARS.charAt(enc2) + BASE64_CHARS.charAt(enc3) + BASE64_CHARS.charAt(enc4);
   }
   return output;
 }
@@ -301,7 +255,7 @@ function streamTapeExtractor(link2) {
   });
 }
 function hubStreamExtractor(url, referer) {
-  return fetch(url, { headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer }) }).then((response) => {
+  return fetch(url, { headers: { ...HEADERS, Referer: referer } }).then((response) => {
     return [{ source: "Hubstream", quality: "Unknown", url }];
   }).catch((e) => {
     console.error(`[Hubstream] Failed to extract from ${url}:`, e.message);
@@ -309,7 +263,7 @@ function hubStreamExtractor(url, referer) {
   });
 }
 function hbLinksExtractor(url, referer) {
-  return fetch(url, { headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer }) }).then((response) => response.text()).then((data) => {
+  return fetch(url, { headers: { ...HEADERS, Referer: referer } }).then((response) => response.text()).then((data) => {
     const $ = cheerio.load(data);
     const links = $("h3 a, div.entry-content p a").map((i, el) => $(el).attr("href")).get();
     const finalLinks = [];
@@ -321,7 +275,7 @@ function hbLinksExtractor(url, referer) {
   });
 }
 function hubCdnExtractor(url, referer) {
-  return fetch(url, { headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer }) }).then((response) => response.text()).then((data) => {
+  return fetch(url, { headers: { ...HEADERS, Referer: referer } }).then((response) => response.text()).then((data) => {
     const encodedMatch = data.match(/r=([A-Za-z0-9+/=]+)/);
     if (encodedMatch && encodedMatch[1]) {
       const m3u8Data = atob(encodedMatch[1]);
@@ -336,7 +290,7 @@ function hubCdnExtractor(url, referer) {
   }).catch(() => []);
 }
 function hubDriveExtractor(url, referer) {
-  return fetch(url, { headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer }) }).then((response) => response.text()).then((data) => {
+  return fetch(url, { headers: { ...HEADERS, Referer: referer } }).then((response) => response.text()).then((data) => {
     const $ = cheerio.load(data);
     const href = $(".btn.btn-primary.btn-user.btn-success1.m-1").attr("href");
     if (href) {
@@ -352,7 +306,7 @@ function hubCloudExtractor(url, referer) {
   }
   if (/\/(video|drive)\//i.test(currentUrl)) {
     return fetch(currentUrl, {
-      headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer })
+      headers: { ...HEADERS, Referer: referer }
     }).then((r) => r.text()).then((html) => {
       const $ = cheerio.load(html);
       const hubPhp = $('a[href*="hubcloud.php"]').attr("href");
@@ -362,7 +316,7 @@ function hubCloudExtractor(url, referer) {
     }).catch(() => []);
   }
   const initialFetch = currentUrl.includes("hubcloud.php") ? fetch(currentUrl, {
-    headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer }),
+    headers: { ...HEADERS, Referer: referer },
     redirect: "follow"
   }).then(
     (response) => response.text().then((html) => ({
@@ -370,14 +324,14 @@ function hubCloudExtractor(url, referer) {
       finalUrl: response.url || currentUrl
     }))
   ) : fetch(currentUrl, {
-    headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: referer })
+    headers: { ...HEADERS, Referer: referer }
   }).then((r) => r.text()).then((pageData) => {
     let finalUrl = currentUrl;
     const scriptUrlMatch = pageData.match(/var url = '([^']*)'/);
     if (scriptUrlMatch && scriptUrlMatch[1]) {
       finalUrl = scriptUrlMatch[1];
       return fetch(finalUrl, {
-        headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: currentUrl })
+        headers: { ...HEADERS, Referer: currentUrl }
       }).then((r) => r.text()).then((secondData) => ({
         pageData: secondData,
         finalUrl
@@ -471,12 +425,12 @@ function hubCloudExtractor(url, referer) {
       if (text.includes("BuzzServer")) {
         return fetch(`${link2}/download`, {
           method: "GET",
-          headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: link2 }),
+          headers: { ...HEADERS, Referer: link2 },
           redirect: "manual"
         }).then((resp) => {
           if (resp.status >= 300 && resp.status < 400) {
             const loc = resp.headers.get("location");
-            const m = loc == null ? void 0 : loc.match(/hx-redirect=([^&]+)/);
+            const m = loc?.match(/hx-redirect=([^&]+)/);
             if (m) {
               links.push({
                 source: `HubCloud - BuzzServer ${labelExtras}`,
@@ -492,7 +446,8 @@ function hubCloudExtractor(url, referer) {
       }
       if (link2.includes("pixeldra")) {
         return pixelDrainExtractor(link2).then((extracted) => {
-          links.push(...extracted.map((l) => __spreadProps(__spreadValues({}, l), {
+          links.push(...extracted.map((l) => ({
+            ...l,
             quality: typeof l.quality === "number" ? l.quality : quality,
             size: l.size || sizeInBytes2,
             fileName
@@ -509,7 +464,7 @@ function hubCloudExtractor(url, referer) {
           return fetch(redirectUrl, { redirect: "manual" }).then((r) => {
             if (r.status >= 300 && r.status < 400) {
               const loc = r.headers.get("location");
-              if (loc == null ? void 0 : loc.includes("link=")) {
+              if (loc?.includes("link=")) {
                 finalLink = loc.split("link=")[1];
                 return finalLink;
               }
@@ -539,7 +494,6 @@ function hubCloudExtractor(url, referer) {
 }
 function gdFlixExtractor(url, referer = null) {
   return __async(this, null, function* () {
-    var _a, _b, _c, _d, _e, _f;
     const links = [];
     const getIndexQuality2 = (name) => {
       const m = (name || "").match(/(\d{3,4})[pP]/);
@@ -597,8 +551,8 @@ function gdFlixExtractor(url, referer = null) {
             });
           }
         } else if (text.includes("drivebot")) {
-          const id = (_a = href.match(/id=([^&]+)/)) == null ? void 0 : _a[1];
-          const doId = (_b = href.match(/do=([^=]+)/)) == null ? void 0 : _b[1];
+          const id = href.match(/id=([^&]+)/)?.[1];
+          const doId = href.match(/do=([^=]+)/)?.[1];
           if (!id || !doId)
             continue;
           const bases = ["https://drivebot.sbs", "https://drivebot.cfd"];
@@ -607,8 +561,8 @@ function gdFlixExtractor(url, referer = null) {
               const bot = yield fetch(`${base}/download?id=${id}&do=${doId}`);
               const cookie = bot.headers.get("set-cookie") || "";
               const html2 = yield bot.text();
-              const token = (_c = html2.match(/token', '([a-f0-9]+)/)) == null ? void 0 : _c[1];
-              const postId = (_d = html2.match(/download\?id=([^']+)/)) == null ? void 0 : _d[1];
+              const token = html2.match(/token', '([a-f0-9]+)/)?.[1];
+              const postId = html2.match(/download\?id=([^']+)/)?.[1];
               if (!token || !postId)
                 continue;
               const dl = yield fetch(`${base}/download?id=${postId}`, {
@@ -620,7 +574,7 @@ function gdFlixExtractor(url, referer = null) {
                 },
                 body: `token=${token}`
               }).then((r) => r.text());
-              const final = (_f = (_e = dl.match(/url":"(.*?)"/)) == null ? void 0 : _e[1]) == null ? void 0 : _f.replace(/\\/g, "");
+              const final = dl.match(/url":"(.*?)"/)?.[1]?.replace(/\\/g, "");
               if (final) {
                 links.push({
                   source: "GDFlix [DriveBot]",
@@ -630,7 +584,7 @@ function gdFlixExtractor(url, referer = null) {
                   fileName
                 });
               }
-            } catch (e) {
+            } catch {
             }
           }
         } else if (text.includes("instant")) {
@@ -647,14 +601,16 @@ function gdFlixExtractor(url, referer = null) {
           }
         } else if (text.includes("gofile")) {
           const extracted = yield goFileExtractor(href);
-          extracted.forEach((l) => links.push(__spreadProps(__spreadValues({}, l), {
+          extracted.forEach((l) => links.push({
+            ...l,
             quality,
             size: l.size || sizeBytes,
             fileName
-          })));
+          }));
         } else if (text.includes("pixel")) {
           return pixelDrainExtractor(link).then((extracted) => {
-            links.push(...extracted.map((l) => __spreadProps(__spreadValues({}, l), {
+            links.push(...extracted.map((l) => ({
+              ...l,
               quality: typeof l.quality === "number" ? l.quality : quality,
               size: l.size || sizeInBytes,
               fileName
@@ -663,25 +619,24 @@ function gdFlixExtractor(url, referer = null) {
           });
         }
       }
-    } catch (e) {
+    } catch {
     }
     return links;
   });
 }
 function goFileExtractor(url) {
   return __async(this, null, function* () {
-    var _a, _b, _c;
     const links = [];
     try {
-      const id = (_a = url.match(/(?:\?c=|\/d\/)([a-zA-Z0-9-]+)/)) == null ? void 0 : _a[1];
+      const id = url.match(/(?:\?c=|\/d\/)([a-zA-Z0-9-]+)/)?.[1];
       if (!id)
         return [];
       const acc = yield fetch("https://api.gofile.io/accounts", { method: "POST" }).then((r) => r.json());
-      const token = (_b = acc == null ? void 0 : acc.data) == null ? void 0 : _b.token;
+      const token = acc?.data?.token;
       if (!token)
         return [];
       const js = yield fetch("https://gofile.io/dist/js/global.js").then((r) => r.text());
-      const wt = (_c = js.match(/appdata\.wt\s*=\s*["']([^"']+)/)) == null ? void 0 : _c[1];
+      const wt = js.match(/appdata\.wt\s*=\s*["']([^"']+)/)?.[1];
       if (!wt)
         return [];
       const data = yield fetch(`https://api.gofile.io/contents/${id}?wt=${wt}`, {
@@ -702,7 +657,7 @@ function goFileExtractor(url) {
         headers: { Cookie: `accountToken=${token}` },
         label: `GoFile [${sizeFormatted}]`
       });
-    } catch (e) {
+    } catch {
     }
     return links;
   });
@@ -755,24 +710,20 @@ function search(imdbId, page = 1) {
     console.log(`[Moviesdrive] Searching API: ${apiUrl}`);
     return fetch(apiUrl, { headers: HEADERS });
   }).then((res) => res.json()).then((json) => {
-    var _a;
-    if (!((_a = json == null ? void 0 : json.hits) == null ? void 0 : _a.length)) {
+    if (!json?.hits?.length) {
       console.log("[Moviesdrive] No results");
       return [];
     }
-    const results = json.hits.map((hit) => hit.document).filter((doc) => doc.imdb_id === imdbId).map((doc) => {
-      var _a2;
-      return {
-        title: doc.post_title,
-        url: doc.permalink.startsWith("http") ? doc.permalink : `${MAIN_URL}${doc.permalink.startsWith("/") ? "" : "/"}${doc.permalink}`,
-        poster: (_a2 = doc.post_thumbnail) != null ? _a2 : null,
-        year: (() => {
-          const match = doc.post_title.match(/\b(19|20)\d{2}\b/);
-          return match ? Number(match[0]) : null;
-        })(),
-        imdbId: doc.imdb_id
-      };
-    });
+    const results = json.hits.map((hit) => hit.document).filter((doc) => doc.imdb_id === imdbId).map((doc) => ({
+      title: doc.post_title,
+      url: doc.permalink.startsWith("http") ? doc.permalink : `${MAIN_URL}${doc.permalink.startsWith("/") ? "" : "/"}${doc.permalink}`,
+      poster: doc.post_thumbnail ?? null,
+      year: (() => {
+        const match = doc.post_title.match(/\b(19|20)\d{2}\b/);
+        return match ? Number(match[0]) : null;
+      })(),
+      imdbId: doc.imdb_id
+    }));
     console.log(`[Moviesdrive] Search results: ${results.length}`);
     return results;
   });
@@ -830,7 +781,7 @@ function getDownloadLinks(mediaUrl, season, episode) {
         const flat = results.flat(2);
         const seen = /* @__PURE__ */ new Set();
         const finalLinks = flat.filter((link2) => {
-          if (!(link2 == null ? void 0 : link2.url) || seen.has(link2.url))
+          if (!link2?.url || seen.has(link2.url))
             return false;
           seen.add(link2.url);
           return true;
@@ -906,7 +857,7 @@ function getDownloadLinks(mediaUrl, season, episode) {
           const flat = results.flat();
           const seen = /* @__PURE__ */ new Set();
           const finalLinks = flat.filter((link2) => {
-            if (!(link2 == null ? void 0 : link2.url) || seen.has(link2.url))
+            if (!link2?.url || seen.has(link2.url))
               return false;
             seen.add(link2.url);
             return true;
@@ -939,14 +890,13 @@ function getTMDBDetails(tmdbId, mediaType) {
     }
     return response.json();
   }).then(function(data) {
-    var _a;
     const title = mediaType === "tv" ? data.name : data.title;
     const releaseDate = mediaType === "tv" ? data.first_air_date : data.release_date;
     const year = releaseDate ? parseInt(releaseDate.split("-")[0]) : null;
     return {
       title,
       year,
-      imdbId: ((_a = data.external_ids) == null ? void 0 : _a.imdb_id) || null
+      imdbId: data.external_ids?.imdb_id || null
     };
   });
 }
@@ -1081,8 +1031,7 @@ function getStreams(tmdbId, mediaType = "movie", season = null, episode = null) 
           "Unknown": -2
         };
         streams.sort(function(a, b) {
-          var _a, _b;
-          return ((_a = qualityOrder[b.quality]) != null ? _a : -3) - ((_b = qualityOrder[a.quality]) != null ? _b : -3);
+          return (qualityOrder[b.quality] ?? -3) - (qualityOrder[a.quality] ?? -3);
         });
         console.log(`[Moviesdrive] Found ${streams.length} streams`);
         return streams;

@@ -18,8 +18,10 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const BASE_URL = "https://kisskh.nl";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+
+// src/providers/kisskh.js
+var BASE_URL = "https://kisskh.nl";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     try {

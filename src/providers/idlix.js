@@ -39,7 +39,7 @@ async function getStreams(tmdbId, mediaType, season, episode) {
     const isTV = mediaType === "tv";
     const searchUrl = `${BASE_URL}/api/search?q=${encodeURIComponent(title)}&page=1&limit=8`;
     const searchData = await (await fetch(searchUrl, { headers: HEADERS, skipSizeCheck: true })).json();
-    const results = searchData.results || [];
+    const results = (searchData && searchData.results) || [];
 
     if (!results.length) return [];
 

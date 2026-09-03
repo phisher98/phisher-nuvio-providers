@@ -1,22 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -37,10 +18,12 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const BASE_URL = "https://4khdhub.dad";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+
+// src/providers/fourkHDhub.js
+var cheerio = require("cheerio-without-node-native");
+var BASE_URL = "https://4khdhub.dad";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
   "Referer": `${BASE_URL}/`
 };
@@ -58,7 +41,6 @@ function extractQuality(str) {
 }
 function resolveHubCloud(url) {
   return __async(this, null, function* () {
-    var _a;
     try {
       const html1 = yield (yield fetch(url, { headers: HEADERS, skipSizeCheck: true })).text();
       const $1 = cheerio.load(html1);
@@ -66,7 +48,7 @@ function resolveHubCloud(url) {
       if (!href)
         return null;
       if (!href.startsWith("http")) {
-        const base = ((_a = url.match(/^(https?:\/\/[^/]+)/)) == null ? void 0 : _a[1]) || "";
+        const base = url.match(/^(https?:\/\/[^/]+)/)?.[1] || "";
         href = base + "/" + href.replace(/^\//, "");
       }
       const html2 = yield (yield fetch(href, { headers: HEADERS, skipSizeCheck: true })).text();
@@ -176,7 +158,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
               const hubStreams = yield resolveHubCloud(resolved);
               if (hubStreams) {
                 for (const s of hubStreams) {
-                  streams.push(__spreadProps(__spreadValues({}, s), { subtitles: [] }));
+                  streams.push({ ...s, subtitles: [] });
                 }
               }
             } else {

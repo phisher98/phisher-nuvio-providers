@@ -18,10 +18,12 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const BASE_URL = "https://animekhor.org";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+
+// src/providers/animekhor.js
+var cheerio = require("cheerio-without-node-native");
+var BASE_URL = "https://animekhor.org";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
   "Referer": `${BASE_URL}/`
 };
@@ -64,10 +66,10 @@ function getStreams(tmdbId, mediaType, season, episode) {
           const href = $3(el).find("a").attr("href");
           const epText = $3(el).find("a span").text();
           const epNumMatch = epText.match(/(\d+)/);
-          const epNum = parseInt((epNumMatch == null ? void 0 : epNumMatch[1]) || "0");
+          const epNum = parseInt(epNumMatch?.[1] || "0");
           if (epNum === targetEp || !episodeUrl && epNum > 0) {
             if (!episodeUrl)
-              episodeUrl = (href == null ? void 0 : href.startsWith("http")) ? href : BASE_URL + (href || "");
+              episodeUrl = href?.startsWith("http") ? href : BASE_URL + (href || "");
           }
         });
         if (!episodeUrl) {
@@ -89,7 +91,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
         try {
           const decoded = atob(base64Val);
           const srcMatch = decoded.match(/src=["']([^"']+)["']/i);
-          let url = srcMatch == null ? void 0 : srcMatch[1];
+          let url = srcMatch?.[1];
           if (url) {
             if (url.startsWith("//"))
               url = "https:" + url;

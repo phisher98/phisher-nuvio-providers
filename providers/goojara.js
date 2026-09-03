@@ -1,22 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -37,27 +18,17 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const BASE_URL = "https://ww1.goojara.to";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+
+// src/providers/goojara.js
+var cheerio = require("cheerio-without-node-native");
+var BASE_URL = "https://ww1.goojara.to";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0",
   "Accept": "*/*",
   "Referer": BASE_URL,
   "Cookie": "aGooz=dg18hh2eittp5e7s53u0e6bloh"
 };
-function extractQuality(url) {
-  const u = (url || "").toLowerCase();
-  if (u.includes("2160p") || u.includes("4k"))
-    return "4K";
-  if (u.includes("1080p"))
-    return "1080p";
-  if (u.includes("720p"))
-    return "720p";
-  if (u.includes("480p"))
-    return "480p";
-  return "Unknown";
-}
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     try {
@@ -73,9 +44,10 @@ function getStreams(tmdbId, mediaType, season, episode) {
       });
       const searchResp = yield fetch(`${BASE_URL}/xmre.php`, {
         method: "POST",
-        headers: __spreadProps(__spreadValues({}, HEADERS), {
+        headers: {
+          ...HEADERS,
           "Content-Type": "application/x-www-form-urlencoded"
-        }),
+        },
         body: searchBody.toString(),
         skipSizeCheck: true
       });
@@ -130,7 +102,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
         targetUrl = epUrl;
       }
       const playerResp = yield fetch(targetUrl, {
-        headers: __spreadProps(__spreadValues({}, HEADERS), { Referer: "https://www.goojara.to", Cookie: "" }),
+        headers: { ...HEADERS, Referer: "https://www.goojara.to", Cookie: "" },
         skipSizeCheck: true
       });
       const playerHtml = yield playerResp.text();
@@ -146,10 +118,11 @@ function getStreams(tmdbId, mediaType, season, episode) {
           continue;
         try {
           const redirectResp = yield fetch(href, {
-            headers: __spreadProps(__spreadValues({}, HEADERS), {
+            headers: {
+              ...HEADERS,
               Referer: BASE_URL,
               Cookie: cookieStr
-            }),
+            },
             redirect: "manual",
             skipSizeCheck: true
           });

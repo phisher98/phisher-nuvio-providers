@@ -18,16 +18,18 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const MAIN_URL = "https://animepahe.ru";
-const HEADERS = {
+
+// src/providers/animepahe.js
+var cheerio = require("cheerio-without-node-native");
+var MAIN_URL = "https://animepahe.ru";
+var HEADERS = {
   "Cookie": "__ddg2_=1234567890",
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
   "Accept-Language": "en-US,en;q=0.9",
   "Referer": MAIN_URL + "/"
 };
-const TMDB_API_KEY = "439c478a771f35c05022f9feabcca01c";
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+var TMDB_API_KEY = "439c478a771f35c05022f9feabcca01c";
+var TMDB_BASE_URL = "https://api.themoviedb.org/3";
 function tmdbFetch(path) {
   return fetch(`${TMDB_BASE_URL}${path}?api_key=${TMDB_API_KEY}`).then((r) => r.ok ? r.json() : null);
 }
@@ -47,10 +49,10 @@ function getTMDBDetails(tmdbId, type) {
   });
 }
 function unpack(packed) {
-  const regex = new RegExp('eval\\s*\\(\\s*function\\s*\\(\\s*p\\s*,\\s*a\\s*,\\s*c\\s*,\\s*k\\s*,\\s*e\\s*,\\s*d\\s*\\).*?return\\s+p\\s*}\\s*\\(\\s*\\"(.*?)\\"\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\"(.*?)\\"\\.split\\(\\"\\|\\"\\)', "s");
+  const regex = /eval\s*\(\s*function\s*\(\s*p\s*,\s*a\s*,\s*c\s*,\s*k\s*,\s*e\s*,\s*d\s*\).*?return\s+p\s*}\s*\(\s*\"(.*?)\"\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*\"(.*?)\"\.split\(\"\|\"\)/s;
   let match = packed.match(regex);
   if (!match) {
-    const regexSq = new RegExp("eval\\s*\\(\\s*function\\s*\\(\\s*p\\s*,\\s*a\\s*,\\s*c\\s*,\\s*k\\s*,\\s*e\\s*,\\s*d\\s*\\).*?return\\s+p\\s*}\\s*\\(\\s*\\'(.*?)\\'\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\'(.*?)\\'\\.split\\(\\'\\|\\'\\)", "s");
+    const regexSq = /eval\s*\(\s*function\s*\(\s*p\s*,\s*a\s*,\s*c\s*,\s*k\s*,\s*e\s*,\s*d\s*\).*?return\s+p\s*}\s*\(\s*\'(.*?)\'\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*\'(.*?)\'\.split\(\'\|\'\)/s;
     match = packed.match(regexSq);
   }
   if (!match)
@@ -101,7 +103,7 @@ function getStreams(tmdbId, mediaType = "movie", season = null, episode = null) 
       const info = yield getTMDBDetails(tmdbId, mediaType);
       if (!info)
         return [];
-      const epNum = episode != null ? episode : 1;
+      const epNum = episode ?? 1;
       const title = info.title;
       let searchUrl = `${MAIN_URL}/api?m=search&l=8&q=${encodeURIComponent(title)}`;
       let searchRes = yield fetch(searchUrl, { headers: HEADERS });

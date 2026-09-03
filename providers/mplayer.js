@@ -1,22 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -37,18 +18,19 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-const cheerio = require("cheerio-without-node-native");
-const BASE_URL = "https://www.mxplayer.in";
-const WEB_API = "https://api.mxplayer.in/v1/web";
-const ENDPOINT_URL = "https://d3sgzbosmwirao.cloudfront.net/";
-const TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
-const HEADERS = {
+
+// src/providers/mplayer.js
+var cheerio = require("cheerio-without-node-native");
+var BASE_URL = "https://www.mxplayer.in";
+var WEB_API = "https://api.mxplayer.in/v1/web";
+var ENDPOINT_URL = "https://d3sgzbosmwirao.cloudfront.net/";
+var TMDB_API_KEY = "1865f43a0549ca50d341dd9ab8b29f49";
+var HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   "Referer": `${BASE_URL}/`
 };
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
-    var _a;
     try {
       const tmdbUrl = `https://api.themoviedb.org/3/${mediaType}/${tmdbId}?api_key=${TMDB_API_KEY}`;
       const mediaInfo = yield (yield fetch(tmdbUrl, { skipSizeCheck: true })).json();
@@ -58,7 +40,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
       let userId = "";
       try {
         const homeResp = yield fetch(BASE_URL, { headers: HEADERS, skipSizeCheck: true });
-        const cookieHeader = ((_a = homeResp.headers) == null ? void 0 : _a.get("set-cookie")) || "";
+        const cookieHeader = homeResp.headers?.get("set-cookie") || "";
         const userIdMatch = cookieHeader.match(/UserID=([^;]+)/);
         if (userIdMatch)
           userId = userIdMatch[1];
@@ -67,7 +49,7 @@ function getStreams(tmdbId, mediaType, season, episode) {
       const endParam = `&device-density=2&userid=${userId}&platform=com.mxplay.desktop&content-languages=hi,en&kids-mode-enabled=false`;
       const searchResp = yield fetch(`${WEB_API}/search/resultv2?query=${encodeURIComponent(title)}${endParam}`, {
         method: "POST",
-        headers: __spreadProps(__spreadValues({}, HEADERS), { "Content-Type": "application/json" }),
+        headers: { ...HEADERS, "Content-Type": "application/json" },
         body: "{}",
         skipSizeCheck: true
       });
@@ -104,22 +86,21 @@ function getStreams(tmdbId, mediaType, season, episode) {
         return [];
       const streams = [];
       const extractStreamUrls = (streamObj) => {
-        var _a2, _b;
         const urls = [];
         if (!streamObj)
           return urls;
-        const hlsObj = streamObj.hls || ((_a2 = streamObj.mxplay) == null ? void 0 : _a2.hls);
-        const dashObj = streamObj.dash || ((_b = streamObj.mxplay) == null ? void 0 : _b.dash);
+        const hlsObj = streamObj.hls || streamObj.mxplay?.hls;
+        const dashObj = streamObj.dash || streamObj.mxplay?.dash;
         const thirdParty = streamObj.thirdParty;
         for (const variant of ["high", "base", "main"]) {
-          if (hlsObj == null ? void 0 : hlsObj[variant])
+          if (hlsObj?.[variant])
             urls.push(normalizeUrl(hlsObj[variant]));
-          if (dashObj == null ? void 0 : dashObj[variant])
+          if (dashObj?.[variant])
             urls.push(normalizeUrl(dashObj[variant]));
         }
-        if (thirdParty == null ? void 0 : thirdParty.hlsUrl)
+        if (thirdParty?.hlsUrl)
           urls.push(thirdParty.hlsUrl);
-        if (thirdParty == null ? void 0 : thirdParty.dashUrl)
+        if (thirdParty?.dashUrl)
           urls.push(thirdParty.dashUrl);
         return [...new Set(urls.filter(Boolean))];
       };
