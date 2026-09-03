@@ -896,7 +896,7 @@ function loadExtractor(url, referer = MAIN_URL) {
 function search(imdbId, page = 1) {
     return getCurrentDomain()
         .then(currentDomain => {
-            const apiUrl = `${currentDomain}/searchapi.php?q=${encodeURIComponent(imdbId)}&page=${page}`;
+            const apiUrl = `${currentDomain}/search.php?q=${encodeURIComponent(imdbId)}&page=${page}`;
             console.log(`[Moviesdrive] Searching API: ${apiUrl}`);
             return fetch(apiUrl, { headers: HEADERS });
         })
