@@ -108,7 +108,7 @@ function getStreams(tmdbId, mediaType = "movie", season = null, episode = null) 
       if (!searchRes.ok)
         return [];
       let searchJson = yield searchRes.json();
-      if (!searchJson.data || searchJson.data.length === 0)
+      if (!searchJson || !searchJson.data || searchJson.data.length === 0)
         return [];
       let anime = searchJson.data[0];
       let session = anime.session;
